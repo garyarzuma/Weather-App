@@ -4,8 +4,8 @@
   "description": "Web App that allows users to search for the weather of any location. Uses the OpenWeather API to retreive weather information.",
   "main": "index.js",
   "devDependencies": {
-    "webpack-cli": "^4.3.1",
-    "webpack": "^5.11.1"
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
