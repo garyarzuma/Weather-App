@@ -4,9 +4,10 @@ async function getWeather(city) {
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fdadea7e4878d60da4eee4280c0d280a&units=imperial`
     );
     const weatherJSON = await response.json();
-    return weatherJSON;
+    processJSON(weatherJSON);
   } catch (error) {
     console.log(error);
+    //handleError();
   }
 }
 
@@ -17,7 +18,7 @@ function processJSON(weatherJSON) {
     tempObject = await processJSON;
     weatherObject["name"] = tempObject.name;
     weatherObject["country"] = tempObject.sys.country;
-    weatherObject["description"] = tempObject.weather[0].description;
+    weatherObject["description"] = (tempObject.weather[0].description);
     weatherObject["temp"] = tempObject.main.temp;
     weatherObject["maxTemp"] = tempObject.main.temp_max;
     weatherObject["minTemp"] = tempObject.main.temp_min;
@@ -25,8 +26,14 @@ function processJSON(weatherJSON) {
   }
 
   getObject(weatherJSON);
+  console.log(weatherObject);
   return weatherObject;
 }
 
-console.log(processJSON(getWeather("Irvine")));
-//console.log(weather);
+function getUserInput(){
+  const myForm = document.getElementById("userInput");
+  const myLocation = myForm.value;
+  const myWeather = getWeather(myLocation);
+}
+
+document.getElementById("submit").addEventListener("click", getUserInput);

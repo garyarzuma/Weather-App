@@ -6,7 +6,11 @@
   <link rel="stylesheet" href="weatherApp.css" />
   <link rel="shortcut icon" href="#" />
   <body>
-    hello
+    <form onkeypress="return event.keyCode != 13">
+      <label for="location">Location:</label>
+      <input type="text" name="location" id="userInput">
+      <button type="button" id="submit">Find</button>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>
