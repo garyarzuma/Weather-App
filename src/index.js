@@ -18,7 +18,6 @@ async function getWeather(city) {
 function processJSON(weatherJSON) {
   async function getObject(processJSON) {
     tempObject = await processJSON;
-    console.log(tempObject);
     const weatherObject = {};
     weatherObject.name = tempObject.name;
     weatherObject.country = tempObject.sys.country;
@@ -29,7 +28,6 @@ function processJSON(weatherJSON) {
     return weatherObject;
   }
   const weatherObject = getObject(weatherJSON);
-  weatherObject.then((d) => console.log(d)); //can delete
 
   return weatherObject;
 }
@@ -82,7 +80,7 @@ function getUserInput() {
 }
 
 //event listeners for clicking on Find and pressing enter when in textbox
-document.getElementById("submit").addEventListener("click", getUserInput);
+//document.getElementById("submit").addEventListener("click", getUserInput);
 document
   .getElementById("userInput")
   .addEventListener("keyup", function (event) {
