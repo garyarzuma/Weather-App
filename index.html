@@ -2,38 +2,56 @@
 <html lang="en">
   <meta charset="UTF-8" />
   <title>Weather App</title>
+
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="weatherApp.css" />
-  <link rel="shortcut icon" href="#" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
   <body>
     <h1>The Weather App</h1>
-
-    <div class="search-container">
-      <div id="mag">
-        <svg
-          focusable="false"
-          id="mag"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-          ></path>
-        </svg>
+    <div id="search-Degree-Container">
+      <div class="search-container">
+        <div id="mag">
+          <svg
+            focusable="false"
+            id="mag"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            ></path>
+          </svg>
+        </div>
+        <form onkeypress="return event.keyCode != 13">
+          <input
+            type="text"
+            name="location"
+            id="userInput"
+            placeholder="Your city or zipcode here"
+            class="search-bar"
+          />
+        </form>
       </div>
-      <form onkeypress="return event.keyCode != 13">
-        <input
-          type="text"
-          name="location"
-          id="userInput"
-          placeholder="Your city or zipcode here"
-          class="search-bar"
-        />
-      </form>
+      <div id="F" class="units">&#8457;</div>
     </div>
-    <div id="F" class="units">F</div>
-    <div id="weatherContainer"></div>
+    <div id="img-weather-Container">
+      <img src="#" alt="" />
+      <div id="weather-info-Container">
+        <div id="temp"></div>
+        <div id="info"></div>
+      </div>
+    </div>
+    <div id="footer">
+      <a href="https://github.com/garyarzuma"
+        ><i class="fa fa-github-square"></i
+      ></a>
+      <a href="https://openweathermap.org/"
+        ><span> Powered by OpenWeather API</span></a
+      >
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
