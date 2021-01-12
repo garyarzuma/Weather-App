@@ -53,3 +53,19 @@ input.search-bar {
   width: 25px;
   color: rgb(158, 158, 158);
 }
+
+.units {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+#F {
+}
+
+#C {
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+}
