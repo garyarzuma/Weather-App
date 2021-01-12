@@ -4,7 +4,6 @@ async function getWeather(city, unit) {
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fdadea7e4878d60da4eee4280c0d280a&units=${unit}`
     );
     const weatherJSON = await response.json();
-    console.log(response.status);
     if (response.status !== 404) {
       return processJSON(weatherJSON);
     }
@@ -18,7 +17,6 @@ async function getWeather(city, unit) {
 function processJSON(weatherJSON) {
   async function getObject(processJSON) {
     tempObject = await processJSON;
-    console.log(tempObject);
     const weatherObject = {};
     weatherObject.name = tempObject.name;
     weatherObject.country = tempObject.sys.country;
@@ -35,7 +33,7 @@ function processJSON(weatherJSON) {
 }
 
 function handleError() {
-  const weatherContainer = document.getElementById("weatherContainer");
+  const weatherContainer = document.getElementById("weather-info-Container");
   const myDiv = document.createElement("div");
   myDiv.className = "error";
   myDiv.textContent = "Location not found!";
@@ -44,8 +42,10 @@ function handleError() {
 }
 
 function displayWeather(weatherObject) {
-  const weatherContainer = document.getElementById("weatherContainer");
+  const weatherContainer = document.getElementById("temp");
+  const infoContainer = document.getElementById("info");
   weatherContainer.innerHTML = ""; //clear contents
+  infoContainer.innerHTML = ""; //clear contents
   weatherObject.then((weather) => {
     //waits until weatherObject is resolved THEN displays the div
     for (const myKey in weather) {
@@ -54,39 +54,50 @@ function displayWeather(weatherObject) {
           myDiv = document.createElement("div");
           myDiv.className = myKey;
           myDiv.textContent = `${weather.name}, ${weather.country}`;
+          infoContainer.appendChild(myDiv);
           break;
         case "description":
           myDiv = document.createElement("div");
           myDiv.className = myKey;
           myDiv.textContent =
             weather[myKey].charAt(0).toUpperCase() + weather[myKey].slice(1);
+          infoContainer.appendChild(myDiv);
           break;
         case "temp":
           myDiv = document.createElement("div");
           myDiv.className = myKey;
-          myDiv.textContent = Math.round(weather[myKey]) + "\u00B0F";
+          myDiv.textContent =
+            Math.round(weather[myKey]) +
+            "\u00B0" +
+            document.querySelector(".units").id;
+          weatherContainer.appendChild(myDiv);
           break;
         case "feelsLike":
           myDiv = document.createElement("div");
           myDiv.className = myKey;
           myDiv.textContent =
-            "Feels like: " + Math.round(weather[myKey]) + "\u00B0F";
-        case "icon":
-          //addIcon();
+            "Feels like: " +
+            Math.round(weather[myKey]) +
+            "\u00B0" +
+            document.querySelector(".units").id;
+          infoContainer.appendChild(myDiv);
           break;
-      }
-      if (myKey !== "country" || myKey !== "icon") {
-        weatherContainer.appendChild(myDiv);
+        case "icon":
+          addIcon(weather[myKey]);
+          break;
       }
     }
   });
 }
+function addIcon(icon) {
+  imgSRC = `http://openweathermap.org/img/wn/${icon}@4x.png`;
+  document.querySelector("img").src = imgSRC;
+}
 
 function changeUnit() {
-  myUnit = document.querySelector(".units");
+  const myUnit = document.querySelector(".units");
   myUnit.id = myUnit.id === "F" ? "C" : "F"; //toggles celsius and farenheit
-  myUnit.textContent = myUnit.id;
-  console.log(myUnit.id);
+  myUnit.innerHTML = myUnit.id === "F" ? "&#8457;" : "&#8451;";
 }
 
 function getUserInput() {
