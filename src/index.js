@@ -1,7 +1,7 @@
-async function getWeather(city) {
+async function getWeather(city, unit) {
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fdadea7e4878d60da4eee4280c0d280a&units=imperial`
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fdadea7e4878d60da4eee4280c0d280a&units=${unit}`
     );
     const weatherJSON = await response.json();
     console.log(response.status);
@@ -18,12 +18,14 @@ async function getWeather(city) {
 function processJSON(weatherJSON) {
   async function getObject(processJSON) {
     tempObject = await processJSON;
+    console.log(tempObject);
     const weatherObject = {};
     weatherObject.name = tempObject.name;
     weatherObject.country = tempObject.sys.country;
     weatherObject.description = tempObject.weather[0].description;
     weatherObject.temp = tempObject.main.temp;
     weatherObject.feelsLike = tempObject.main.feels_like;
+    weatherObject.icon = tempObject.weather[0].icon;
 
     return weatherObject;
   }
@@ -47,40 +49,57 @@ function displayWeather(weatherObject) {
   weatherObject.then((weather) => {
     //waits until weatherObject is resolved THEN displays the div
     for (const myKey in weather) {
-      const myDiv = document.createElement("div");
-      myDiv.className = myKey;
       switch (myKey) {
         case "name":
+          myDiv = document.createElement("div");
+          myDiv.className = myKey;
           myDiv.textContent = `${weather.name}, ${weather.country}`;
           break;
         case "description":
+          myDiv = document.createElement("div");
+          myDiv.className = myKey;
           myDiv.textContent =
             weather[myKey].charAt(0).toUpperCase() + weather[myKey].slice(1);
           break;
         case "temp":
+          myDiv = document.createElement("div");
+          myDiv.className = myKey;
           myDiv.textContent = Math.round(weather[myKey]) + "\u00B0F";
           break;
         case "feelsLike":
+          myDiv = document.createElement("div");
+          myDiv.className = myKey;
           myDiv.textContent =
             "Feels like: " + Math.round(weather[myKey]) + "\u00B0F";
+        case "icon":
+          //addIcon();
+          break;
       }
-      if (myKey !== "country") {
+      if (myKey !== "country" || myKey !== "icon") {
         weatherContainer.appendChild(myDiv);
       }
     }
   });
 }
 
+function changeUnit() {
+  myUnit = document.querySelector(".units");
+  myUnit.id = myUnit.id === "F" ? "C" : "F"; //toggles celsius and farenheit
+  myUnit.textContent = myUnit.id;
+  console.log(myUnit.id);
+}
+
 function getUserInput() {
   const myForm = document.getElementById("userInput");
   const myLocation = myForm.value;
-  const myWeather = getWeather(myLocation); //a promise
+  const myUnitId = document.querySelector(".units").id;
+  const myUnit = myUnitId === "F" ? "imperial" : "metric";
+  const myWeather = getWeather(myLocation, myUnit); //a promise
   displayWeather(myWeather);
-  //console.log(myObject);
 }
 
-//event listeners for clicking on Find and pressing enter when in textbox
-//document.getElementById("submit").addEventListener("click", getUserInput);
+document.querySelector(".units").addEventListener("click", changeUnit);
+
 document
   .getElementById("userInput")
   .addEventListener("keyup", function (event) {
