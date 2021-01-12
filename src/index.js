@@ -35,17 +35,20 @@ function processJSON(weatherJSON) {
 }
 
 function handleError() {
-  const weatherContainer = document.getElementById("weather-info-Container");
-  const myDiv = document.createElement("div");
-  myDiv.className = "error";
-  myDiv.textContent = "Location not found!";
+  const weatherContainer = document.getElementById("temp");
+  const infoContainer = document.getElementById("info");
+  const myErrorDiv = document.getElementById("error");
+  document.querySelector("img").src = "#";
+  myErrorDiv.textContent = "Location not found!";
   weatherContainer.innerHTML = ""; //clear current contents
-  weatherContainer.appendChild(myDiv);
+  infoContainer.innerHTML = ""; //clear contents
 }
 
 function displayWeather(weatherObject) {
   const weatherContainer = document.getElementById("temp");
   const infoContainer = document.getElementById("info");
+  const myErrorDiv = document.getElementById("error");
+  myErrorDiv.innerHTML = "";
   weatherContainer.innerHTML = ""; //clear contents
   infoContainer.innerHTML = ""; //clear contents
   weatherObject.then((weather) => {
