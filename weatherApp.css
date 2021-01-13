@@ -5,6 +5,7 @@ h1 {
 
 form {
   margin: 10px;
+  margin-right: 70px;
 }
 
 body {
@@ -55,10 +56,10 @@ body {
   margin-top: 6px;
 }
 .search-bar {
-  margin-right: 100px;
+  margin-right: 150px;
   display: flex;
   font-size: 18px;
-  width: 70%;
+  width: 90%;
   border: 1px solid #dfe1e5;
   border-radius: 24px;
   height: 44px;
