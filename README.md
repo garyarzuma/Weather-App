@@ -20,4 +20,4 @@ Overall project time: ~15 hours Date Completed: 1/12/2020
 
 -Gary Arzumanyan
 
-![Sample Screenshot](Sample.png)
+![Sample Screenshot](Sample.PNG)
