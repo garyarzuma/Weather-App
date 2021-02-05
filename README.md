@@ -16,7 +16,7 @@ Demonstrated Skills:
     -Uses try and catch to handle errors from the api call.
     -Uses Webpack to bundle all imports for simplicity.
 
-Overall project time: ~15 hours Date Completed: 1/12/2020
+Overall project time: ~15 hours Date Completed: 1/12/2021
 
 -Gary Arzumanyan
 
